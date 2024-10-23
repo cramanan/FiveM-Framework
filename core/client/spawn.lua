@@ -3,7 +3,7 @@ function Spawn()
 
     if not IsModelValid(model) then model = "player_zero" end
 
-    local spawnPos = vector3(-1156.4609585958594, -3152.3402340234015, 13)
+    local spawnPos = vector3(415.4442788028803, -977.5329095409535, 29)
     exports.spawnmanager:spawnPlayer({
         x = spawnPos.x,
         y = spawnPos.y,

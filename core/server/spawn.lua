@@ -1,6 +1,5 @@
 print("Starting core:spawn...")
 
-
 lib.callback.register(CORE.events.GET_INFO, function()
     local steam = GetPlayerIdentifierByType(source, "steam")
     local row = MySQL.scalar.await([[
@@ -23,6 +22,8 @@ AddEventHandler("playerConnecting", function(_, _, deferrals)
         return deferrals.done("You need to launch steam before entering the server.");
     end
 
+
+
     local row = MySQL.single.await([[
     SELECT *
     FROM `users`
@@ -30,23 +31,22 @@ AddEventHandler("playerConnecting", function(_, _, deferrals)
     LIMIT 1;
     ]], { steam })
 
-    local name = GetPlayerName(src)
-
-    if row then return deferrals.done() end
-
-    local id = MySQL.insert.await('INSERT INTO `users` VALUES (?, ?, DEFAULT);',
-        { steam, name })
-
-
-    if not id then
-        return deferrals.done("Couldn't connect you to the server, please contact an administrator.")
+    if row then
+        deferrals.done()
+        return
     end
 
-    id = MySQL.insert.await("INSERT INTO `banking` VALUES(?, ?, ?);",
-        { steam, BANKING.config.defaultBalanceAmount, BANKING.config.defaultWalletAmount })
+    local name = GetPlayerName(src)
 
-    if not id then
-        return deferrals.done("Couldn't connect you to the server, please contact an administrator.")
+    local queries = {
+        { query = "INSERT INTO `users` VALUES (?, ?, DEFAULT);", values = { steam, name } },
+        { query = "INSERT INTO `banking` VALUES(?, ?, ?);",      values = { steam, BANKING.config.defaultBalanceAmount, BANKING.config.defaultWalletAmount } },
+    }
+
+
+    if not MySQL.transaction.await(queries) then
+        deferrals.done("Couldn't connect you to the server, please contact an administrator.")
+        return
     end
 
     deferrals.done()

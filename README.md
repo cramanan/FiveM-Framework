@@ -4,6 +4,7 @@
 
 1. [Requirements](#requirements)
 2. [Installation](#installation)
+3. [Recommended resources](#recommended-resources)
 
 ### Requirements
 
@@ -60,3 +61,13 @@ set mysql_connection_string "mysql://user:password@host:3306/database-name"
 4. Migrate the table from [`init.sql`](/core/init.sql)
 
 5. Start your server
+
+### Recommended resources
+
+-   `[misc]`:
+
+    -   [vSyncR](https://github.com/KalinkaGit/vSyncR): to synchronize time and weather.
+
+-   `[maps]`:
+
+    -   [bob74_ipl](https://github.com/Bob74/bob74_ipl): to fix holes in the map, up to latest DLCs.

@@ -12,8 +12,9 @@ CreateThread(function()
         EndTextCommandSetBlipName(item.blip)
     end
 
-    -- SetHudComponentSize(14, 0, 0) --Disable Reticule ?? (Don't know if this works)
-    SetHudComponentSize(1, 0, 0) -- Disable wanted stars
+    -- Trying to avoid looping with SetHudComponentSize. Comment/Remove to display
+    SetHudComponentSize(14, 0, 0) -- Reticule
+    SetHudComponentSize(1, 0, 0)  -- Wanted stars
 
     SetWeaponsNoAutoreload(true)
     SetWeaponsNoAutoswap(true)
