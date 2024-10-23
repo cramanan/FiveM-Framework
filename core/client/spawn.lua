@@ -1,5 +1,5 @@
 function Spawn()
-    local model = lib.callback.await("framework:core:get_info") or "player_zero"
+    local model = lib.callback.await(CORE.events.GET_INFO) or "player_zero"
 
     if not IsModelValid(model) then model = "player_zero" end
 
@@ -19,7 +19,7 @@ RegisterCommand("respawn", function()
     local ped = PlayerPedId()
     if not IsEntityDead(ped) then return end
     Spawn()
-end)
+end, false)
 
 CreateThread(function()
     local ped = PlayerId()
@@ -45,4 +45,4 @@ RegisterCommand("tp", function(_, args)
 
     local ped = PlayerPedId()
     SetEntityCoords(ped, x, y, z, false, false, false, false)
-end)
+end, false)

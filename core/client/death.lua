@@ -36,3 +36,6 @@ end
 
 AddEventHandler("baseevents:onPlayerKilled", Wasted)
 AddEventHandler("baseevents:onPlayerDied", Wasted)
+
+RegisterCommand("kill", function() SetEntityHealth(PlayerPedId(), 0) end, false)
+RegisterKeyMapping("kill", "Suicide", "KEYBOARD", "K")

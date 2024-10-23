@@ -1,6 +1,5 @@
-RegisterCommand("kill", function() SetEntityHealth(PlayerPedId(), 0) end, false)
-RegisterKeyMapping("kill", "Suicide", "KEYBOARD", "K")
-
+print("Starting core:banking")
+-- From https://github.com/hnomkeng/fivem
 local atms = {
     -- { name = "ATM", x = -386.733,  y = 6045.953,  z = 31.501 },
     -- { name = "ATM", x = -284.037,  y = 6224.385,  z = 31.187 },
@@ -77,6 +76,7 @@ local atms = {
 
 }
 
+-- From https://github.com/hnomkeng/fivem
 local banks = {
     -- { name = "Bank", x = 150.266,   y = -1040.203, z = 29.374 },
     -- { name = "Bank", x = -1212.980, y = -330.841,  z = 37.787 },

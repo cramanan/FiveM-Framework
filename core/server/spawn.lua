@@ -1,4 +1,7 @@
-lib.callback.register("framework:core:get_info", function()
+print("Starting core:spawn...")
+
+
+lib.callback.register(CORE.events.GET_INFO, function()
     local steam = GetPlayerIdentifierByType(source, "steam")
     local row = MySQL.scalar.await([[
         SELECT `model`

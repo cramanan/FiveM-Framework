@@ -1,3 +1,11 @@
+print("Starting core:shared...")
+
+CORE = {
+    events = {
+        GET_INFO = "framework:core:get_info"
+    }
+}
+
 BANKING = {
     config = {
         defaultBalanceAmount = 0,

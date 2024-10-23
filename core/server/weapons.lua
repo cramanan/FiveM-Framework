@@ -1,3 +1,5 @@
+print("Starting core:weapon...")
+
 lib.callback.register(WEAPON.events.GET_INFO, function()
     local steam = GetPlayerIdentifierByType(source, "steam")
     local weapons = MySQL.query.await([[
