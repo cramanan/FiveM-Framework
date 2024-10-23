@@ -1,5 +1,8 @@
 function Spawn()
     local model = lib.callback.await("framework:core:get_info") or "player_zero"
+
+    if not IsModelValid(model) then model = "player_zero" end
+
     local spawnPos = vector3(-1156.4609585958594, -3152.3402340234015, 13)
     exports.spawnmanager:spawnPlayer({
         x = spawnPos.x,

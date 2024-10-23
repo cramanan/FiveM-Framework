@@ -13,14 +13,4 @@ WEAPON = {
     events = {
         GET_INFO = "framework:banking:server:get_weapons"
     },
-
-    AMMO_TYPES = {
-        "AMMO_PISTOL",
-        "AMMO_SMG",
-        "AMMO_SHOTGUN",
-        "AMMO_RIFLE",
-        "AMMO_MG",
-        "AMMO_SNIPER",
-        "AMMO_RPG",
-    }
 }
