@@ -1,0 +1,13 @@
+\[cars\]/*
+!\[cars\]/.gitkeep
+\[maps\]/*
+!\[maps\]/.gitkeep
+\[misc\]/*
+!\[misc\]/.gitkeep
+\[peds\]/*
+!\[peds\]/.gitkeep
+\[weapons\]/*
+!\[weapons\]/.gitkeep
+
+ox_lib/
+oxmysql/
