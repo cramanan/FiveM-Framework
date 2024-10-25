@@ -14,7 +14,6 @@ CreateThread(function()
 
     -- Trying to avoid looping with SetHudComponentSize. Comment/Remove to display
     SetHudComponentSize(14, 0, 0) -- Reticule
-    SetHudComponentSize(1, 0, 0)  -- Wanted stars
 
     SetWeaponsNoAutoreload(true)
     SetWeaponsNoAutoswap(true)

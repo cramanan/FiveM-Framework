@@ -1,13 +1,5 @@
-\[cars\]/*
-!\[cars\]/.gitkeep
-\[maps\]/*
-!\[maps\]/.gitkeep
-\[misc\]/*
-!\[misc\]/.gitkeep
-\[peds\]/*
-!\[peds\]/.gitkeep
-\[weapons\]/*
-!\[weapons\]/.gitkeep
+\[*]/*
+!\[*]/.gitkeep
 
 ox_lib/
 oxmysql/

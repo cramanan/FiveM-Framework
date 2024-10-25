@@ -10,9 +10,9 @@
 
 -   [A Vanilla FXServer](https://docs.fivem.net/docs/server-manual/setting-up-a-server-vanilla/)
 -   [A Steam API key](https://steamcommunity.com/dev)
--   [Ox Lib](https://overextended.dev/ox_lib)
--   [OxMySQL](https://overextended.dev/oxmysql)
 -   [MySQL](https://www.mysql.com/) or [MariaDB](https://mariadb.org/)
+-   [OxMySQL](https://overextended.dev/oxmysql)
+-   [Ox Lib](https://overextended.dev/ox_lib)
 
 ### Installation
 
@@ -29,22 +29,28 @@
     ```
 
 2. Clone this repository into the folder or install as a zip and extract into the folder:
+
     ```sh
     cd server-data/resources
     git clone https://github.com/cramanan/FiveM-Framework [Framework]
     ```
+
     Now your file structure should look like this:
+
     ```console
     FXServer
     ├── server
     │   └── ...
     └── server-data
         ├── [Framework]
-        │   ├── [cars]
-        │   └── ...
+        │   ├── ...
+        │   └── [required]
         └── ...
     ```
-3. Edit your `server.cfg` file and add these lines:
+
+3. Import every [required resources](#requirements) into the `[required]` folder
+
+4. Edit your `server.cfg` file and add these lines:
 
 ```
 ensure baseevents
@@ -58,9 +64,9 @@ set steam_webApiKey "YOUR_STEAM_API_KEY"
 set mysql_connection_string "mysql://user:password@host:3306/database-name"
 ```
 
-4. Migrate the table from [`init.sql`](/core/init.sql)
+5. Migrate the table from [`init.sql`](/core/init.sql) to your MariaDB/MySQL database
 
-5. Start your server
+6. Start your server
 
 ### Recommended resources
 
