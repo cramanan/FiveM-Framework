@@ -28,7 +28,7 @@ RegisterCommand('car', function(_, args)
     local heading = GetEntityHeading(player)
     local vehicle = CreateVehicle(vehicleName, pos.x, pos.y, pos.z, heading, true, false)
 
-    SetVehicleRadioEnabled(vehicle, false)
+    -- SetVehicleRadioEnabled(vehicle, false)
     SetPedIntoVehicle(player, vehicle, -1)
     SetModelAsNoLongerNeeded(vehicle)
 end, false)

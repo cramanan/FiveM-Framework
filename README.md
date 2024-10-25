@@ -1,4 +1,4 @@
-# My FiveM Framework
+# FiveM Framework
 
 ## Overview
 
@@ -16,7 +16,7 @@
 
 ### Installation
 
-1. Create a folder in your `resources` folder named `[Framework]` (Do not forget the brackets as this is a group of resources),
+1. Create a folder in your `resources` folder named `[Framework]` (Do not forget the brackets as this is a group of resources).
    Your file structure should look like this:
 
     ```console

@@ -28,7 +28,6 @@ CreateThread(function()
     NetworkSetFriendlyFireOption(true)
     SetCanAttackFriendly(ped, true, true)
 
-
     while true do
         Wait(1000)
 
