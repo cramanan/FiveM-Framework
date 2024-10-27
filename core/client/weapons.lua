@@ -1,9 +1,9 @@
-local AMMUNITIONS <const> = {
+local AMMUNATIONS <const> = {
     { x = 811.960, y = -2147.843, z = 29.5290 },
 }
 
 CreateThread(function()
-    for _, item in pairs(AMMUNITIONS) do
+    for _, item in pairs(AMMUNATIONS) do
         item.blip = AddBlipForCoord(item.x, item.y, item.z)
         SetBlipSprite(item.blip, 110)
         SetBlipAsShortRange(item.blip, true)
@@ -18,8 +18,6 @@ CreateThread(function()
     SetWeaponsNoAutoreload(true)
     SetWeaponsNoAutoswap(true)
 end)
-
-
 
 AddEventHandler("playerSpawned", function()
     local weapons = lib.callback.await(WEAPON.events.GET_INFO)
