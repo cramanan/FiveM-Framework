@@ -1,17 +1,5 @@
 print("Starting core:spawn...")
 
-lib.callback.register(CORE.events.GET_INFO, function()
-    local steam = GetPlayerIdentifierByType(source, "steam")
-    local row = MySQL.scalar.await([[
-        SELECT `model`
-        FROM `users`
-        WHERE `steamid` = ?
-        LIMIT 1;
-        ]], { steam })
-
-    return row
-end)
-
 AddEventHandler("playerConnecting", function(_, _, deferrals)
     local src = source
     local steam = GetPlayerIdentifierByType(src, "steam")
@@ -27,7 +15,7 @@ AddEventHandler("playerConnecting", function(_, _, deferrals)
     local row = MySQL.single.await([[
     SELECT *
     FROM `users`
-    WHERE `steamid` = ?
+    WHERE `steam_id` = ?
     LIMIT 1;
     ]], { steam })
 
@@ -39,8 +27,9 @@ AddEventHandler("playerConnecting", function(_, _, deferrals)
     local name = GetPlayerName(src)
 
     local queries = {
-        { query = "INSERT INTO `users` VALUES (?, ?, DEFAULT);", values = { steam, name } },
-        { query = "INSERT INTO `banking` VALUES(?, ?, ?);",      values = { steam, BANKING.config.defaultBalanceAmount, BANKING.config.defaultWalletAmount } },
+        { query = "INSERT INTO `users` VALUES (?, ?);",                values = { steam, name } },
+        { query = "INSERT INTO `banking` VALUES(?, ?, ?);",            values = { steam, BANKING.config.defaultBalanceAmount, BANKING.config.defaultWalletAmount } },
+        { query = "INSERT INTO `spawn_record` VALUES(?, ?, ?, ?, ?);", values = { steam, 364.21, -587.48, 28, "player_zero" } }
     }
 
 
@@ -50,4 +39,37 @@ AddEventHandler("playerConnecting", function(_, _, deferrals)
     end
 
     deferrals.done()
+end)
+
+lib.callback.register(CORE.events.GET_INFO, function()
+    local steam = GetPlayerIdentifierByType(source, "steam")
+    local row = MySQL.single.await([[
+        SELECT *
+        FROM `spawn_record`
+        WHERE `steam_id` = ?
+        LIMIT 1;
+        ]], { steam })
+
+    return row
+end)
+
+RegisterNetEvent("core:server:spawn:spawnpoint", function(data)
+    if not data or not data.x or not data.y or not data.z then return end
+    local src = source
+    local steam = GetPlayerIdentifierByType(src, "steam")
+
+    local row = MySQL.single.await([[
+        SELECT *
+        FROM `spawn_record`
+        WHERE `steam_id` = ?
+        LIMIT 1;
+        ]], { steam })
+
+    MySQL.update.await([[
+    UPDATE `spawn_record`
+    SET x = ?, y = ?, z = ?
+    WHERE steam_id = ?
+    ]], {
+        data.x, data.y, data.z, steam
+    })
 end)

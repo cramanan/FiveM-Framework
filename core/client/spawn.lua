@@ -1,15 +1,17 @@
 function Spawn()
-    local model = lib.callback.await(CORE.events.GET_INFO) or "player_zero"
+    local spawnInfo = lib.callback.await(CORE.events.GET_INFO)
 
-    if not IsModelValid(model) then model = "player_zero" end
+    if type(spawnInfo) ~= "table" then spawnInfo = {} end
 
-    local spawnPos = vector3(364.21, -587.48, 28)
-    exports.spawnmanager:spawnPlayer({
-        x = spawnPos.x,
-        y = spawnPos.y,
-        z = spawnPos.z,
-        model = model
-    })
+    spawnInfo.model = spawnInfo.model or "player_zero"
+    spawnInfo.x = spawnInfo.x or 364.21
+    spawnInfo.y = spawnInfo.y or -587.48
+    spawnInfo.z = spawnInfo.z or 28
+
+
+    if not IsModelValid(spawnInfo.model) then spawnInfo.model = "player_zero" end
+
+    exports.spawnmanager:spawnPlayer(spawnInfo)
 end
 
 AddEventHandler('onClientMapStart', Spawn)
@@ -36,4 +38,21 @@ CreateThread(function()
         CancelAllPoliceReports()
         RestorePlayerStamina(ped, 1.0) --infinite stamina
     end
+end)
+
+RegisterCommand("tp", function(_, args)
+    local x, y, z = tonumber(args[1]), tonumber(args[2]), tonumber(args[3])
+    if not x or not y or not z then return print("Invalid coords") end
+    local ped = PlayerPedId()
+    SetEntityCoords(ped, x, y, z, true, false, false, false)
+end)
+
+RegisterCommand("spawnpoint", function(_, args)
+    local ped = PlayerPedId()
+    TriggerServerEvent("core:server:spawn:spawnpoint", GetEntityCoords(ped))
+end)
+
+AddEventHandler("playerSpawned", function()
+    local playerPed = PlayerPedId()
+    SetPedDefaultComponentVariation(playerPed)
 end)
