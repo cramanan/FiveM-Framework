@@ -27,9 +27,9 @@ AddEventHandler("playerConnecting", function(_, _, deferrals)
     local name = GetPlayerName(src)
 
     local queries = {
-        { query = "INSERT INTO `users` VALUES (?, ?);",                values = { steam, name } },
-        { query = "INSERT INTO `banking` VALUES(?, ?, ?);",            values = { steam, BANKING.config.defaultBalanceAmount, BANKING.config.defaultWalletAmount } },
-        { query = "INSERT INTO `spawn_record` VALUES(?, ?, ?, ?, ?);", values = { steam, 364.21, -587.48, 28, "player_zero" } }
+        { query = "INSERT INTO `users` VALUES (?, ?);",                   values = { steam, name } },
+        { query = "INSERT INTO `banking` VALUES(?, ?, ?);",               values = { steam, BANKING.config.defaultBalanceAmount, BANKING.config.defaultWalletAmount } },
+        { query = "INSERT INTO `spawn_record` VALUES(?, ?, ?, ?, ?, ?);", values = { steam, "player_zero", 364.21, -587.48, 28, 0 } }
     }
 
 
@@ -58,18 +58,11 @@ RegisterNetEvent("core:server:spawn:spawnpoint", function(data)
     local src = source
     local steam = GetPlayerIdentifierByType(src, "steam")
 
-    local row = MySQL.single.await([[
-        SELECT *
-        FROM `spawn_record`
-        WHERE `steam_id` = ?
-        LIMIT 1;
-        ]], { steam })
-
     MySQL.update.await([[
     UPDATE `spawn_record`
-    SET x = ?, y = ?, z = ?
+    SET x = ?, y = ?, z = ?, heading = ?
     WHERE steam_id = ?
     ]], {
-        data.x, data.y, data.z, steam
+        data.x, data.y, data.z, data.heading, steam
     })
 end)

@@ -33,12 +33,13 @@ CREATE TABLE IF NOT EXISTS `banking` (
 -- Listage de la structure de la table clawz_core. spawn_record
 CREATE TABLE IF NOT EXISTS `spawn_record` (
   `steam_id` varchar(60) NOT NULL,
-  `x` float DEFAULT NULL,
-  `y` float DEFAULT NULL,
-  `z` float DEFAULT NULL,
-  `model` varchar(50) DEFAULT 'player_zero',
+  `model` varchar(30) NOT NULL DEFAULT 'player_zero',
+  `x` float NOT NULL,
+  `y` float NOT NULL,
+  `z` float NOT NULL,
+  `heading` float NOT NULL,
   KEY `steam_id` (`steam_id`),
-  CONSTRAINT `steam_id` FOREIGN KEY (`steam_id`) REFERENCES `users` (`steam_id`) ON DELETE NO ACTION ON UPDATE CASCADE
+  CONSTRAINT `steam_id` FOREIGN KEY (`steam_id`) REFERENCES `users` (`steam_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='This table holds players spawn informations such as coords and model.';
 
 -- Les données exportées n'étaient pas sélectionnées.

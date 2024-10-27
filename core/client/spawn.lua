@@ -7,7 +7,7 @@ function Spawn()
     spawnInfo.x = spawnInfo.x or 364.21
     spawnInfo.y = spawnInfo.y or -587.48
     spawnInfo.z = spawnInfo.z or 28
-
+    spawnInfo.heading = spawnInfo.heading or 90
 
     if not IsModelValid(spawnInfo.model) then spawnInfo.model = "player_zero" end
 
@@ -28,7 +28,7 @@ CreateThread(function()
 
     NetworkSetFriendlyFireOption(true)
     SetCanAttackFriendly(ped, true, true)
-    SetHudComponentSize(1, 0, 0)  -- Disable Wanted stars
+    -- SetHudComponentSize(1, 0, 0)  -- Disable Wanted stars
     SetHudComponentSize(20, 0, 0) -- Disable WEAPON_WHEEL_STATS
     SetHudComponentSize(13, 0, 0) -- Disable Cash change
 
@@ -49,7 +49,15 @@ end)
 
 RegisterCommand("spawnpoint", function(_, args)
     local ped = PlayerPedId()
-    TriggerServerEvent("core:server:spawn:spawnpoint", GetEntityCoords(ped))
+    local coords = GetEntityCoords(ped)
+    local data = {
+        x = coords.x,
+        y = coords.y,
+        z = coords.z,
+        heading = GetEntityHeading(ped)
+    }
+
+    TriggerServerEvent("core:server:spawn:spawnpoint", data)
 end)
 
 AddEventHandler("playerSpawned", function()
