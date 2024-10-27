@@ -1,3 +1,10 @@
+-- --------------------------------------------------------
+-- Hôte:                         localhost
+-- Version du serveur:           11.5.2-MariaDB - mariadb.org binary distribution
+-- SE du serveur:                Win64
+-- HeidiSQL Version:             12.6.0.6765
+-- --------------------------------------------------------
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
@@ -8,32 +15,52 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-CREATE DATABASE IF NOT EXISTS `clawz-core` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `clawz-core`;
+-- Listage de la structure de la base pour clawz_core
+CREATE DATABASE IF NOT EXISTS `clawz_core` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `clawz_core`;
 
+-- Listage de la structure de la table clawz_core. banking
 CREATE TABLE IF NOT EXISTS `banking` (
-  `steamid` varchar(60) NOT NULL,
+  `steam_id` varchar(60) NOT NULL,
   `balance` int(11) NOT NULL DEFAULT 0,
   `wallet` int(11) NOT NULL DEFAULT 0,
-  KEY `steamid` (`steamid`),
-  CONSTRAINT `steamid` FOREIGN KEY (`steamid`) REFERENCES `users` (`steamId`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `steam_id` (`steam_id`),
+  CONSTRAINT `banking_ibfk_1` FOREIGN KEY (`steam_id`) REFERENCES `users` (`steam_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
+-- Listage de la structure de la table clawz_core. spawn_record
+CREATE TABLE IF NOT EXISTS `spawn_record` (
+  `steam_id` varchar(60) NOT NULL,
+  `x` float DEFAULT NULL,
+  `y` float DEFAULT NULL,
+  `z` float DEFAULT NULL,
+  `model` varchar(50) DEFAULT 'player_zero',
+  KEY `steam_id` (`steam_id`),
+  CONSTRAINT `steam_id` FOREIGN KEY (`steam_id`) REFERENCES `users` (`steam_id`) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='This table holds players spawn informations such as coords and model.';
+
+-- Les données exportées n'étaient pas sélectionnées.
+
+-- Listage de la structure de la table clawz_core. users
 CREATE TABLE IF NOT EXISTS `users` (
-  `steamId` varchar(60) NOT NULL,
+  `steam_id` varchar(60) NOT NULL,
   `name` varchar(60) NOT NULL,
-  `model` varchar(50) NOT NULL DEFAULT 's_m_y_swat_01',
-  PRIMARY KEY (`steamId`)
+  PRIMARY KEY (`steam_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Les données exportées n'étaient pas sélectionnées.
 
+-- Listage de la structure de la table clawz_core. weapons_record
 CREATE TABLE IF NOT EXISTS `weapons_record` (
-  `steamid` varchar(50) NOT NULL,
+  `steam_id` varchar(50) NOT NULL,
   `weapon` varchar(50) NOT NULL,
-  KEY `FK__users` (`steamid`),
-  CONSTRAINT `FK__users` FOREIGN KEY (`steamid`) REFERENCES `users` (`steamId`) ON DELETE CASCADE ON UPDATE NO ACTION
+  KEY `steam_id` (`steam_id`),
+  CONSTRAINT `weapons_record_ibfk_1` FOREIGN KEY (`steam_id`) REFERENCES `users` (`steam_id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Les données exportées n'étaient pas sélectionnées.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
