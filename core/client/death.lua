@@ -76,7 +76,7 @@ function Wasted()
         end
 
         -- Disable mouse buttons so they don't bug out for other scripts
-        CallScaleformMovieMethod(ButtonsHandle, 'TOGGLE_MOUSE_BUTTONS', 0)
+        CallScaleformMovieMethod(ButtonsHandle, 'TOGGLE_MOUSE_BUTTONS')
 
         -- Unload the scaleform movie after enter has been pressed
         SetScaleformMovieAsNoLongerNeeded(ButtonsHandle)
@@ -90,8 +90,15 @@ function Wasted()
     StopScreenEffect("DeathFailOut")
 end
 
-AddEventHandler("baseevents:onPlayerKilled", Wasted)
 AddEventHandler("baseevents:onPlayerDied", Wasted)
 
 RegisterCommand("kill", function() SetEntityHealth(PlayerPedId(), 0) end, false)
 RegisterKeyMapping("kill", "Suicide", "KEYBOARD", "K")
+
+RegisterNetEvent("core:client:onPlayerDied")
+AddEventHandler("core:client:onPlayerDied", function(data)
+    if IsEntityDead(PlayerPedId()) then return end
+    ShowNotification(data)
+end)
+
+AddEventHandler("baseevents:onPlayerKilled", Wasted)

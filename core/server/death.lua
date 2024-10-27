@@ -1,6 +1,6 @@
 print("Starting core:death...")
 
--- RegisterNetEvent("baseevents:onPlayerKilled")
--- AddEventHandler("baseevents:onPlayerKilled", function(killerId)
---     print(GetPlayerName(killerId))
--- end)
+RegisterNetEvent("baseevents:onPlayerDied")
+AddEventHandler("baseevents:onPlayerDied", function()
+    TriggerClientEvent("core:client:onPlayerDied", -1, string.format("~bold~%s~bold~ died", GetPlayerName(source)))
+end)
