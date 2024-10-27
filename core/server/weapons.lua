@@ -5,7 +5,7 @@ lib.callback.register(WEAPON.events.GET_INFO, function()
     local weapons = MySQL.query.await([[
     SELECT `weapon`
     FROM `weapons_record`
-    WHERE `steamid` = ?
+    WHERE `steam_id` = ?
     ]], { steam })
 
     if not weapons then return nil end

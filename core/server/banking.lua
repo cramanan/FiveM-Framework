@@ -6,7 +6,7 @@ lib.callback.register(BANKING.events.GET_INFO, function()
     local row = MySQL.single.await([[
     SELECT `balance`, `wallet`
     FROM `banking`
-    WHERE `steamid` = ? LIMIT 1
+    WHERE `steam_id` = ? LIMIT 1
     ]], { steam })
 
     return row
